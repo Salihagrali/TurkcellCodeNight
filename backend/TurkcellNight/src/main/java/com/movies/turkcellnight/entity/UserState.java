@@ -26,8 +26,11 @@ public class UserState {
     private Integer watchPartyMinutesToday;
     private Integer ratingsToday;
 
+    @Column(name = "watch_minutes_7d")
     private Integer watchMinutes7d;
+    @Column(name = "episodes_completed_7d")
     private Integer episodesCompleted7d;
+    @Column(name = "ratings_7d")
     private Integer ratings7d;
 
     private Integer watchStreakDays;

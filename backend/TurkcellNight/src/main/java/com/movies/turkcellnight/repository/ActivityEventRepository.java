@@ -23,4 +23,8 @@ public interface ActivityEventRepository extends JpaRepository<ActivityEvent, St
     // 3. Get all days where watch_minutes >= 30, ordered backward, to calculate the Streak
     @Query("SELECT a.eventDate FROM ActivityEvent a WHERE a.user.userId = :userId AND a.eventDate <= :asOfDate AND a.watchMinutes >= 30 ORDER BY a.eventDate DESC")
     List<LocalDate> findQualifyingStreakDates(@Param("userId") String userId, @Param("asOfDate") LocalDate asOfDate);
+
+    List<ActivityEvent> findByUser_UserIdAndEventDate(String userId, LocalDate asOfDate);
+
+    List<ActivityEvent> findByUser_UserIdAndEventDateBetween(String userId, LocalDate sevenDaysAgo, LocalDate asOfDate);
 }
