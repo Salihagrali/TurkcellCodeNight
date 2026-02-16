@@ -1,66 +1,79 @@
--- 1. KULLANICILAR (users)
+-- 1. USERS
 INSERT INTO users (user_id, name, city, segment, total_points) VALUES
-                                                                   ('U001', 'Ahmet Yılmaz', 'İstanbul', 'Premium', 0),
-                                                                   ('U002', 'Ayşe Demir', 'Ankara', 'Standart', 0),
-                                                                   ('U003', 'Mehmet Kaya', 'İzmir', 'Premium', 0);
+                                                                   ('U001', 'Ahmet Yılmaz', 'İstanbul', 'Premium', 250),
+                                                                   ('U002', 'Ayşe Demir', 'Ankara', 'Standart', 300),
+                                                                   ('U003', 'Mehmet Kaya', 'İzmir', 'Premium', 50),
+                                                                   ('U004', 'Canan Öz', 'Bursa', 'Standart', 0),
+                                                                   ('U005', 'Burak Ak', 'Antalya', 'Premium', 120);
 
--- 2. İÇERİKLER VE BÖLÜMLER (shows & episodes)
+-- 2. SHOWS
 INSERT INTO shows (show_id, show_name, genre) VALUES
                                                   ('S001', 'Bozkır', 'Crime'),
-                                                  ('S002', 'Gibi', 'Comedy');
+                                                  ('S002', 'Gibi', 'Comedy'),
+                                                  ('S003', 'Hamlet', 'Drama'),
+                                                  ('S004', 'Alef', 'Mystery'),
+                                                  ('S005', 'Ayak İşleri', 'Comedy');
 
+-- 3. EPISODES
 INSERT INTO episodes (episode_id, show_id, season, episode_no, duration_min) VALUES
                                                                                  ('E001', 'S001', 1, 1, 45),
                                                                                  ('E002', 'S001', 1, 2, 50),
-                                                                                 ('E003', 'S002', 1, 1, 30);
+                                                                                 ('E003', 'S002', 1, 1, 30),
+                                                                                 ('E004', 'S003', 1, 1, 60),
+                                                                                 ('E005', 'S005', 1, 1, 25);
 
--- 3. GÖREVLER VE ROZETLER (challenges & badges)
+-- 4. CHALLENGES
 INSERT INTO challenges (challenge_id, challenge_name, challenge_type, condition_rule, reward_points, priority, is_active) VALUES
                                                                                                                               ('C001', 'Günlük İzleme', 'DAILY', 'watch_minutes_today >= 60', 100, 1, TRUE),
-                                                                                                                              ('C002', 'Tür Avcısı', 'DAILY', 'unique_genres_today >= 2', 50, 2, TRUE);
+                                                                                                                              ('C002', 'Tür Avcısı', 'DAILY', 'unique_genres_today >= 2', 50, 2, TRUE),
+                                                                                                                              ('C003', 'Haftalık Binge', 'WEEKLY', 'watch_minutes_7d >= 600', 500, 3, TRUE),
+                                                                                                                              ('C004', 'Bölüm Bitirici', 'DAILY', 'episodes_completed_today >= 3', 30, 4, TRUE),
+                                                                                                                              ('C005', 'Streak Serisi', 'STREAK', 'watch_streak_days >= 3', 200, 1, TRUE);
 
+-- 5. BADGES
 INSERT INTO badges (badge_id, badge_name, condition_rule, level) VALUES
-    ('B001', 'Bronz İzleyici', 'total_points >= 150', 1);
+                                                                     ('B001', 'Bronz İzleyici', 'total_points >= 150', 1),
+                                                                     ('B002', 'Gümüş İzleyici', 'total_points >= 500', 2),
+                                                                     ('B003', 'Altın İzleyici', 'total_points >= 1000', 3),
+                                                                     ('B004', 'Komedi Sever', 'total_points >= 100', 1),
+                                                                     ('B005', 'Efsane', 'total_points >= 2000', 4);
 
--- 4. GÜNLÜK AKTİVİTELER (activity_events & activity_shows)
--- U001 kullanıcısı bugün 2 farklı türde içerik izledi.
+-- 6. ACTIVITY EVENTS (Multiple days for Streak testing)
 INSERT INTO activity_events (event_id, user_id, event_date, unique_genres, watch_minutes, episodes_completed, watch_party_minutes, ratings) VALUES
-    ('EV001', 'U001', '2026-03-12', 2, 125, 3, 0, 1);
+                                                                                                                                                ('EV001', 'U001', '2026-03-10', 1, 45, 1, 0, 1),
+                                                                                                                                                ('EV002', 'U001', '2026-03-11', 1, 50, 1, 0, 0),
+                                                                                                                                                ('EV003', 'U001', '2026-03-12', 2, 125, 3, 0, 1),
+                                                                                                                                                ('EV004', 'U002', '2026-03-12', 1, 70, 2, 45, 1),
+                                                                                                                                                ('EV005', 'U003', '2026-03-12', 1, 35, 1, 0, 0);
 
--- U001'in izlediği diziler
-INSERT INTO activity_shows (event_id, show_id) VALUES
-                                                   ('EV001', 'S001'),
-                                                   ('EV001', 'S002');
-
--- 5. KULLANICI GÜNLÜK ÖZETİ (user_states)
+-- 7. USER STATES (Initial Snapshots)
 INSERT INTO user_states (user_id, watch_minutes_today, episodes_completed_today, unique_genres_today, watch_minutes_7d, episodes_completed_7d, ratings_7d, watch_streak_days) VALUES
-    ('U001', 125, 3, 2, 400, 8, 2, 4);
+                                                                                                                                                                                  ('U001', 125, 3, 2, 220, 5, 2, 3),
+                                                                                                                                                                                  ('U002', 70, 2, 1, 500, 12, 5, 5),
+                                                                                                                                                                                  ('U003', 35, 1, 1, 100, 3, 1, 1),
+                                                                                                                                                                                  ('U004', 0, 0, 0, 0, 0, 0, 0),
+                                                                                                                                                                                  ('U005', 45, 1, 1, 300, 6, 2, 2);
 
--- 6. GÖREV KAZANIMLARI VE ÇAKIŞMA YÖNETİMİ (challenge_awards vb.)
--- U001, C001 ve C002'yi hak etti ama öncelik (priority) kuralı [cite: 67] gereği sadece C001 seçildi.
-INSERT INTO challenge_awards (award_id, user_id, as_of_date, selected_challenge_id, reward_points) VALUES
-    ('AW001', 'U001', '2026-03-12', 'C001', 100);
-
--- Hangi görevlerin tetiklendiği ve hangisinin elendiği (suppressed) [cite: 68]
-INSERT INTO award_triggered_challenges (award_id, challenge_id) VALUES ('AW001', 'C001'), ('AW001', 'C002');
-INSERT INTO award_suppressed_challenges (award_id, challenge_id) VALUES ('AW001', 'C002');
-
--- 7. PUAN DEFTERİ (points_ledger) -> BURASI TRIGGER'I ÇALIŞTIRACAK!
--- U001, C001'den 100 puan alıyor.
+-- 8. POINTS LEDGER (This will trigger the total_points update if your DB trigger is active)
 INSERT INTO points_ledger (ledger_id, user_id, points_delta, source, source_ref) VALUES
-    ('L001', 'U001', 100, 'CHALLENGE_REWARD', 'AW001');
+                                                                                     ('L001', 'U001', 100, 'CHALLENGE_REWARD', 'AW001'),
+                                                                                     ('L002', 'U002', 200, 'CHALLENGE_REWARD', 'AW002'),
+                                                                                     ('L003', 'U003', 50, 'WELCOME_BONUS', NULL),
+                                                                                     ('L004', 'U005', 120, 'CHALLENGE_REWARD', 'AW005'),
+                                                                                     ('L005', 'U001', 150, 'BONUS', NULL);
 
--- U001'e test için manuel 50 puan daha ekliyoruz (Toplam 150 olacak).
-INSERT INTO points_ledger (ledger_id, user_id, points_delta, source, source_ref) VALUES
-    ('L002', 'U001', 50, 'BONUS', NULL);
+-- 9. BADGE AWARDS
+INSERT INTO badge_awards (user_id, badge_id) VALUES
+                                                 ('U001', 'B001'),
+                                                 ('U002', 'B001'),
+                                                 ('U002', 'B002'),
+                                                 ('U005', 'B004'),
+                                                 ('U001', 'B004');
 
--- U002'ye tek seferde 150 puan ekleyelim (U001 ile eşitlik test için).
-INSERT INTO points_ledger (ledger_id, user_id, points_delta, source, source_ref) VALUES
-    ('L003', 'U002', 150, 'WELCOME_BONUS', NULL);
-
--- 8. ROZET VE BİLDİRİM (badge_awards & notifications)
--- U001, 150 puana ulaştığı için Bronz rozet aldı.
-INSERT INTO badge_awards (user_id, badge_id) VALUES ('U001', 'B001');
-
+-- 10. NOTIFICATIONS
 INSERT INTO notifications (notification_id, user_id, channel, message) VALUES
-    ('N001', 'U001', 'BiP', 'Günlük İzleme görevini tamamladın ve 100 Puan kazandın!');
+                                                                           ('N001', 'U001', 'BiP', 'Bronz rozet kazandınız!'),
+                                                                           ('N002', 'U002', 'BiP', 'Gümüş rozet kazandınız!'),
+                                                                           ('N003', 'U003', 'BiP', 'Hoş geldin bonusu hesabına yüklendi.'),
+                                                                           ('N004', 'U005', 'BiP', 'Komedi Sever rozeti kazandınız!'),
+                                                                           ('N005', 'U001', 'BiP', 'Günlük İzleme görevi tamamlandı.');
