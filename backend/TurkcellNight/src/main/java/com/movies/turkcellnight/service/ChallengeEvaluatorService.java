@@ -51,12 +51,17 @@ public class ChallengeEvaluatorService {
                 .skip(1) // Skip the winner
                 .collect(Collectors.toSet());
 
-        // 4. Save the Award Record (with suppressed mapped)
+        // 4. Save the Award Record (with triggered AND suppressed mapped)
         String awardId = "AW-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+
+        // Convert the triggered list to a Set for the entity
+        Set<Challenge> triggeredSet = new HashSet<>(triggeredChallenges);
+
         ChallengeAward award = ChallengeAward.builder()
                 .awardId(awardId)
                 .user(userState.getUser())
                 .asOfDate(asOfDate)
+                .triggeredChallenges(triggeredSet) // <-- ADDED THIS LINE
                 .selectedChallenge(selectedChallenge)
                 .rewardPoints(selectedChallenge.getRewardPoints())
                 .suppressedChallenges(suppressedChallenges)
