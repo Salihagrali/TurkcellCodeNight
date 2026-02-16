@@ -33,6 +33,14 @@ public class ChallengeAward {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
+            name = "award_triggered_challenges",
+            joinColumns = @JoinColumn(name = "award_id"),
+            inverseJoinColumns = @JoinColumn(name = "challenge_id")
+    )
+    private Set<Challenge> triggeredChallenges;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
             name = "award_suppressed_challenges",
             joinColumns = @JoinColumn(name = "award_id"),
             inverseJoinColumns = @JoinColumn(name = "challenge_id")
