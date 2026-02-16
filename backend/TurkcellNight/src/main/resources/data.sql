@@ -87,58 +87,58 @@ INSERT INTO notifications (notification_id, user_id, channel, message) VALUES
 -- 11. YÜKSEK PUANLI YENİ KULLANICILAR (Whale Users)
 -- U006: Altın İzleyici sınırında, U007 ve U008: Efsane sınırında başlatıyoruz.
 INSERT INTO users (user_id, name, city, segment, total_points) VALUES
-('U006', 'Kerem Bursin', 'İstanbul', 'Premium', 900),
-('U007', 'Haluk Bilginer', 'İzmir', 'Premium', 1850),
-('U008', 'Gülse Birsel', 'Ankara', 'Premium', 2100);
+                                                                   ('U006', 'Kerem Bursin', 'İstanbul', 'Premium', 900),
+                                                                   ('U007', 'Haluk Bilginer', 'İzmir', 'Premium', 1850),
+                                                                   ('U008', 'Gülse Birsel', 'Ankara', 'Premium', 2100);
 
 -- 12. BU KULLANICILAR İÇİN EKSTRA AKTİVİTELER (Streak ve Binge testleri için)
 INSERT INTO activity_events (event_id, user_id, event_date, unique_genres, watch_minutes, episodes_completed, watch_party_minutes, ratings) VALUES
-('EV006', 'U006', '2026-03-12', 3, 240, 5, 60, 2),
-('EV007', 'U007', '2026-03-12', 2, 300, 6, 0, 5),
-('EV008', 'U008', '2026-03-12', 4, 450, 10, 120, 3);
+                                                                                                                                                ('EV006', 'U006', '2026-03-12', 3, 240, 5, 60, 2),
+                                                                                                                                                ('EV007', 'U007', '2026-03-12', 2, 300, 6, 0, 5),
+                                                                                                                                                ('EV008', 'U008', '2026-03-12', 4, 450, 10, 120, 3);
 
 -- 13. ACTIVITY_SHOWS (Hangi eventte hangi diziler izlendi? Dashboard için kritik)
 INSERT INTO activity_shows (event_id, show_id) VALUES
-('EV001', 'S001'),
-('EV002', 'S001'),
-('EV003', 'S001'), ('EV003', 'S002'),
-('EV004', 'S002'), ('EV004', 'S005'),
-('EV005', 'S003'),
-('EV006', 'S001'), ('EV006', 'S003'), ('EV006', 'S004'),
-('EV007', 'S001'), ('EV007', 'S004'),
-('EV008', 'S002'), ('EV008', 'S005');
+                                                   ('EV001', 'S001'),
+                                                   ('EV002', 'S001'),
+                                                   ('EV003', 'S001'), ('EV003', 'S002'),
+                                                   ('EV004', 'S002'), ('EV004', 'S005'),
+                                                   ('EV005', 'S003'),
+                                                   ('EV006', 'S001'), ('EV006', 'S003'), ('EV006', 'S004'),
+                                                   ('EV007', 'S001'), ('EV007', 'S004'),
+                                                   ('EV008', 'S002'), ('EV008', 'S005');
 
 -- 14. HIGH-TIER USER STATES (Genişletilmiş geçmiş veriler)
 INSERT INTO user_states (user_id, watch_minutes_today, episodes_completed_today, unique_genres_today, watch_minutes_7d, episodes_completed_7d, ratings_7d, watch_streak_days) VALUES
-('U006', 240, 5, 3, 1100, 15, 4, 10),
-('U007', 300, 6, 2, 2500, 25, 10, 30),
-('U008', 450, 10, 4, 3200, 40, 15, 45);
+                                                                                                                                                                                  ('U006', 240, 5, 3, 1100, 15, 4, 10),
+                                                                                                                                                                                  ('U007', 300, 6, 2, 2500, 25, 10, 30),
+                                                                                                                                                                                  ('U008', 450, 10, 4, 3200, 40, 15, 45);
 
 -- 15. CHALLENGE AWARDS & ÇAKIŞMA DURUMLARI (Dashboard Triggered/Suppressed Listesi İçin)
 -- U006: Hem "Günlük İzleme(C001)" hem "Tür Avcısı(C002)" tetiklendi ama C001 seçildi.
 INSERT INTO challenge_awards (award_id, user_id, as_of_date, selected_challenge_id, reward_points) VALUES
-('AW006', 'U006', '2026-03-12', 'C001', 100),
-('AW007', 'U007', '2026-03-12', 'C003', 500), -- Haluk haftalık binge yaptı
-('AW008', 'U008', '2026-03-12', 'C005', 200); -- Gülse streak serisini aldı
+                                                                                                       ('AW006', 'U006', '2026-03-12', 'C001', 100),
+                                                                                                       ('AW007', 'U007', '2026-03-12', 'C003', 500), -- Haluk haftalık binge yaptı
+                                                                                                       ('AW008', 'U008', '2026-03-12', 'C005', 200); -- Gülse streak serisini aldı
 
 -- Hangi görevler tetiklendi?
 INSERT INTO award_triggered_challenges (award_id, challenge_id) VALUES
-('AW006', 'C001'), ('AW006', 'C002'), ('AW006', 'C004'),
-('AW007', 'C001'), ('AW007', 'C003'),
-('AW008', 'C001'), ('AW008', 'C005');
+                                                                    ('AW006', 'C001'), ('AW006', 'C002'), ('AW006', 'C004'),
+                                                                    ('AW007', 'C001'), ('AW007', 'C003'),
+                                                                    ('AW008', 'C001'), ('AW008', 'C005');
 
 -- Hangileri elendi (Suppressed)? Priority kuralı testi.
 INSERT INTO award_suppressed_challenges (award_id, challenge_id) VALUES
-('AW006', 'C002'), ('AW006', 'C004'),
-('AW007', 'C001'),
-('AW008', 'C001');
+                                                                     ('AW006', 'C002'), ('AW006', 'C004'),
+                                                                     ('AW007', 'C001'),
+                                                                     ('AW008', 'C001');
 
 -- 16. YÜKSEK PUANLARI TETİKLEYEN LEDGER GİRDİLERİ
 -- Bu işlemler kullanıcıların mevcut puanlarına eklenecek ve büyük rozet barajlarını aşmalarını sağlayacak.
 INSERT INTO points_ledger (ledger_id, user_id, points_delta, source, source_ref) VALUES
-('L006', 'U006', 150, 'CHALLENGE_REWARD', 'AW006'), -- 900 + 150 = 1050 (Altın İzleyici)
-('L007', 'U007', 500, 'CHALLENGE_REWARD', 'AW007'), -- 1850 + 500 = 2350 (Efsane)
-('L008', 'U008', 200, 'CHALLENGE_REWARD', 'AW008'); -- Zaten 2100'dü, 2300 oldu (Efsane perçinlendi)
+                                                                                     ('L006', 'U006', 150, 'CHALLENGE_REWARD', 'AW006'), -- 900 + 150 = 1050 (Altın İzleyici)
+                                                                                     ('L007', 'U007', 500, 'CHALLENGE_REWARD', 'AW007'), -- 1850 + 500 = 2350 (Efsane)
+                                                                                     ('L008', 'U008', 200, 'CHALLENGE_REWARD', 'AW008'); -- Zaten 2100'dü, 2300 oldu (Efsane perçinlendi)
 
 -- 17. EFSANE VE ALTIN ROZET ATAMALARI
 INSERT INTO badge_awards (user_id, badge_id) VALUES
@@ -151,6 +151,6 @@ INSERT INTO badge_awards (user_id, badge_id) VALUES
 
 -- 18. EFSANEVİ BİLDİRİMLER
 INSERT INTO notifications (notification_id, user_id, channel, message) VALUES
-('N006', 'U006', 'BiP', 'Tebrikler! 1000 Puanı geçerek "Altın İzleyici" oldunuz!'),
-('N007', 'U007', 'SMS', 'İnanılmaz! 2000 Puanı aştınız ve artık bir "Efsane"siniz!'),
-('N008', 'U008', 'BiP', 'Gülse, tüm rozetleri toplayarak TV+ Efsanesi unvanını kazandın!');
+                                                                           ('N006', 'U006', 'BiP', 'Tebrikler! 1000 Puanı geçerek "Altın İzleyici" oldunuz!'),
+                                                                           ('N007', 'U007', 'SMS', 'İnanılmaz! 2000 Puanı aştınız ve artık bir "Efsane"siniz!'),
+                                                                           ('N008', 'U008', 'BiP', 'Gülse, tüm rozetleri toplayarak TV+ Efsanesi unvanını kazandın!');

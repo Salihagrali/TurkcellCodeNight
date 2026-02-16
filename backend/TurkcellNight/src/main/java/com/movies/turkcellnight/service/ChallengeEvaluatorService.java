@@ -22,6 +22,7 @@ public class ChallengeEvaluatorService {
     private final PointsLedgerRepository ledgerRepository;
     private final UserRepository userRepository;
     private final NotificationRepository notificationRepository;
+    private final ChallengeDecisionRepository decisionRepository;
 
     @Transactional
     public void evaluateUserChallenges(UserState userState, LocalDate asOfDate) {
@@ -56,6 +57,19 @@ public class ChallengeEvaluatorService {
 
         // Convert the triggered list to a Set for the entity
         Set<Challenge> triggeredSet = new HashSet<>(triggeredChallenges);
+
+        String reasonText = "Tetiklenen görevler: " + triggeredChallenges.size() + ". " +
+                "Seçilen: " + selectedChallenge.getChallengeId() + " (Öncelik: " + selectedChallenge.getPriority() + ").";
+
+        ChallengeDecision decisionLog = ChallengeDecision.builder()
+                .decisionId("DEC-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase())
+                .user(userState.getUser())
+                .asOfDate(asOfDate)
+                .selectedRewardPoints(selectedChallenge.getRewardPoints())
+                .reason(reasonText)
+                .createdAt(LocalDateTime.now())
+                .build();
+        decisionRepository.save(decisionLog);
 
         ChallengeAward award = ChallengeAward.builder()
                 .awardId(awardId)
