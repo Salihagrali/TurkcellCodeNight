@@ -185,31 +185,36 @@ class AwardsPage extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
-          child: Container(
-            padding: const EdgeInsets.all(16),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  badge.badgeEmoji ?? '🏆',
-                  style: const TextStyle(fontSize: 40),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  badge.badgeName,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
+                Flexible(
+                  child: Text(
+                    badge.badgeEmoji ?? '🏆',
+                    style: const TextStyle(fontSize: 36),
                   ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 6),
+                Flexible(
+                  child: Text(
+                    badge.badgeName,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 if (badge.level != null) ...[
                   const SizedBox(height: 4),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
+                      horizontal: 6,
                       vertical: 2,
                     ),
                     decoration: BoxDecoration(
@@ -219,7 +224,7 @@ class AwardsPage extends StatelessWidget {
                     child: Text(
                       "Seviye ${badge.level}",
                       style: const TextStyle(
-                        fontSize: 10,
+                        fontSize: 9,
                         color: Color(0xFF0038A8),
                         fontWeight: FontWeight.w600,
                       ),
